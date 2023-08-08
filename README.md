@@ -1,5 +1,4 @@
 # TicTacToeBot
-Intelligent tic tac toe bot, uses minimax algorithm to create opponent that will always win
 
 Intelligent tic tac toe bot, incorporated the Minimax algorithm to create a challenging AI opponent capable of strategic gameplay, 
 optimized with depth-limiting for various difficulty levels.
