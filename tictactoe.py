@@ -27,24 +27,24 @@ def reset_game():
 def is_end():
     # Check rows for winner
     for row in game:
-        if row.count(row[0]) == len(row) and row[0] != ' ':
+        if row.count(row[0]) == len(row) and row[0] != ' ': # if all elements in row are same, return winner
             return row[0]
     # Check columns for winner
-    for col in range(len(game)):
+    for col in range(len(game)): # if all columns in the row are same, return winner
         check = []
         for row in game:
             check.append(row[col])
         if check.count(check[0]) == len(check) and check[0] != ' ':
             return check[0]
     # Check diagonals for winner
-    if game[0][0] == game[1][1] == game[2][2] and game[0][0] != ' ':
+    if game[0][0] == game[1][1] == game[2][2] and game[0][0] != ' ': # check top-left to bottom-right diagonal for winner
         return game[0][0]
-    if game[0][2] == game[1][1] == game[2][0] and game[0][2] != ' ':
+    if game[0][2] == game[1][1] == game[2][0] and game[0][2] != ' ': # check top-right to bottom-left diagonal for winner
         return game[0][2]
     # Check for tie (no spaces left)
     for row in game:
         for elem in row:
-            if elem == ' ':
+            if elem == ' ': # if there is a space left, return false meaning game has not ended, otherwise return tie
                 return False
     return 'tie'
 
@@ -57,7 +57,7 @@ def minimax(state, depth, player):
         return 0, None
         # otherwise, dont restrict depth
 
-    winner = is_end()
+    winner = is_end() # check if game has ended, if game has ended return a score that reflects the outcome
     if winner:
         # Return score based on winner
         if winner == 'X':
@@ -70,11 +70,11 @@ def minimax(state, depth, player):
     if player:  # AI turn (maximizing)
         best_value = -math.inf
         move = None
-        for i in range(3):
+        for i in range(3): # iterate through all possible moves
             for j in range(3):
                 if state[i][j] == ' ':
                     state[i][j] = 'X'
-                    value = minimax(state, depth + 1, False)[0]
+                    value = minimax(state, depth + 1, False)[0] # recustively call minimax to evaluate best move (highest score)
                     state[i][j] = ' '
                     if value > best_value:
                         best_value = value
@@ -87,7 +87,7 @@ def minimax(state, depth, player):
             for j in range(3):
                 if state[i][j] == ' ':
                     state[i][j] = 'O'
-                    value = minimax(state, depth + 1, True)[0]
+                    value = minimax(state, depth + 1, True)[0] # recustively call minimax to evaluate best move for human (lowest score)
                     state[i][j] = ' '
                     if value < best_value:
                         best_value = value
@@ -183,6 +183,11 @@ easy_button = tk.Radiobutton(root, text="Easy", variable=difficulty_var, value=1
 medium_button = tk.Radiobutton(root, text="Medium", variable=difficulty_var, value=2, font=status_font)
 hard_button = tk.Radiobutton(root, text="Impossible", variable=difficulty_var, value=3, font=status_font)
 start_button = tk.Button(root, text="Start Game", command=start_game, font=status_font)
+
+create_select_difficulty_page()
+
+root.mainloop() # starts main event loop of application
+
 
 create_select_difficulty_page()
 
